@@ -88,7 +88,7 @@ const resolvers = {
       } else if (args.genre) {
         return await Book.find({ genres: { $in: [args.genre] } })
       } else {
-        return await Book.find({})
+        return await Book.find({}).populate('author')
       }
     },
     allAuthors: async () => await Author.find({}),

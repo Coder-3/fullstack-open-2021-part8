@@ -9,7 +9,7 @@ const App = () => {
   const [page, setPage] = useState('authors')
   const authorsResult = useQuery(ALL_AUTHORS)
   const booksResult = useQuery(ALL_BOOKS)
-
+  
   if (authorsResult.loading || booksResult.loading) {
     return <div>loading...</div>
   }
