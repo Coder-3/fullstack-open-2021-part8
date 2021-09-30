@@ -36,7 +36,11 @@ export const CREATE_BOOK = gql`
       genres: $genres
     ) {
       title
-      author
+      author {
+        name
+        born
+        bookCount
+      }
       published
       genres
       id
@@ -53,6 +57,14 @@ export const SET_BIRTH_YEAR = gql`
       name
       born
       id
+    }
+  }
+`
+
+export const LOGIN = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      value
     }
   }
 `
