@@ -58,7 +58,7 @@ const App = () => {
       />
 
       <Recommendations
-        show={page === 'recommendations'} favoriteGenre={favoriteGenreResult.data.me.favoriteGenre} books={booksResult.data.allBooks}
+        show={page === 'recommendations'} favoriteGenre={favoriteGenreResult.data.me.favoriteGenre}
       />
 
     </div>

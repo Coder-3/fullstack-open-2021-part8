@@ -86,7 +86,7 @@ const resolvers = {
       } else if (args.author) {
         return await Book.find({ author: args.author })
       } else if (args.genre) {
-        return await Book.find({ genres: { $in: [args.genre] } })
+        return await Book.find({ genres: { $in: [args.genre] } }).populate('author')
       } else {
         return await Book.find({}).populate('author')
       }
