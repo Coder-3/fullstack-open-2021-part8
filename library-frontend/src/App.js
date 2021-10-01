@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 import { useQuery, useApolloClient } from '@apollo/client'
+import { ALL_AUTHORS, ALL_BOOKS, FAVORITE_GENRE } from './queries'
 import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
-import { ALL_AUTHORS, ALL_BOOKS } from './queries'
 import LoginForm from './components/LoginForm'
+import Recommendations from './components/Recommendations'
 
 const App = () => {
   const [page, setPage] = useState('authors')
   const [token, setToken] = useState(null)
   const authorsResult = useQuery(ALL_AUTHORS)
   const booksResult = useQuery(ALL_BOOKS)
+  const favoriteGenreResult = useQuery(FAVORITE_GENRE)
   const client = useApolloClient()
   
-  if (authorsResult.loading || booksResult.loading) {
+  if (authorsResult.loading || booksResult.loading || favoriteGenreResult.loading) {
     return <div>loading...</div>
   }
 
@@ -31,6 +33,7 @@ const App = () => {
         {token !== null ?
           <>
             <button onClick={() => setPage('add')}>add book</button>
+            <button onClick={() => setPage('recommendations')}>recommend</button>
             <button onClick={logout}>logout</button>
           </>
         :
@@ -52,6 +55,10 @@ const App = () => {
 
       <LoginForm
         show={page === 'login'} setToken={setToken} setPage={setPage}
+      />
+
+      <Recommendations
+        show={page === 'recommendations'} favoriteGenre={favoriteGenreResult.data.me.favoriteGenre} books={booksResult.data.allBooks}
       />
 
     </div>
